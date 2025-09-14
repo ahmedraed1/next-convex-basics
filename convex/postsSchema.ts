@@ -1,5 +1,13 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+
+
+export const getAllPosts = query({
+    args: {},
+    handler: async (ctx) => {
+        return await ctx.db.query("posts").order("desc").collect();
+    },
+})
 
 export const createPost = mutation({
     args: {

@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { Minus, Plus } from "lucide-react";
-import { Bar, BarChart, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,60 +18,14 @@ import {
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { postFormDataType, postSchema } from "@/lib/schemas";
-import { createPost } from "@/convex/postsSchema";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 
-const data = [
-  {
-    goal: 400,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 239,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 349,
-  },
-];
-
 export default function CreatePostForm() {
-  const [loding, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
-  //   function onClick(adjustment: number) {
-  //     setGoal(Math.max(200, Math.min(400, goal + adjustment)));
-  //   }
 
   const {
     register,
@@ -98,6 +50,7 @@ export default function CreatePostForm() {
       console.log("posting has failed", error);
     } finally {
       setLoading(false);
+      reset();
     }
   };
 
@@ -162,7 +115,9 @@ export default function CreatePostForm() {
                     <DrawerClose asChild>
                       <Button variant="outline">Cancel</Button>
                     </DrawerClose>
-                    <Button type="submit">Create Post</Button>
+                    <Button type="submit">
+                      {loading ? "Loading..." : "Create Post"}
+                    </Button>
                   </div>
                 </DrawerFooter>
               </form>
